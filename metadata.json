@@ -1,0 +1,7 @@
+{
+  "name": "Template Bazar BD",
+  "description": "A premium marketplace for high-quality website and landing page templates in Bangladesh, featuring multi-language support and a clean, modern UI.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
