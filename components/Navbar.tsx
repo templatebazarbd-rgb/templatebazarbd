@@ -11,6 +11,8 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const LOGO_URL = 'https://image2url.com/r2/default/images/1770036962144-eb903fec-66ae-4ed6-a5ae-5e1b98677ccc.png';
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -31,7 +33,7 @@ const Navbar: React.FC = () => {
       <Link 
         to={to} 
         onClick={() => setIsMobileMenuOpen(false)}
-        className={`px-4 py-2 transition-colors duration-200 font-medium ${
+        className={`px-4 py-2 transition-all duration-200 font-black tracking-tight text-sm ${
           isActive 
             ? 'text-[#0066FF] border-b-2 border-[#0066FF]' 
             : 'text-[#4B5563] hover:text-[#0066FF]'
@@ -43,131 +45,106 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
-      {/* Top Bar */}
-      <div className={`bg-[#111827] text-white transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-10'}`}>
-        <div className="container mx-auto px-4 h-full flex justify-between items-center text-sm">
-          <div className="flex items-center space-x-4">
-            <span className="flex items-center english-font"><span className="mr-2">📞</span> 01764471819</span>
+    <header className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300">
+      {/* 1. TOP BAR */}
+      <div className="bg-[#F0F9FF] text-[#111827] border-b border-blue-100 relative z-[110]">
+        <div className="container mx-auto max-w-[1440px] px-4 md:px-6 h-10 md:h-12 flex justify-between items-center text-[8px] md:text-xs">
+          <div className="flex items-center space-x-2">
+            <span className="text-blue-600">✉️</span>
+            <span className="font-bold english-font opacity-80">templatebazarbd@gmail.com</span>
           </div>
-          <div className="flex items-center bg-gray-800 rounded-md p-1">
-            <button 
-              onClick={() => setLanguage('bn')}
-              className={`px-3 py-0.5 rounded transition-all ${language === 'bn' ? 'bg-[#0066FF] text-white shadow-sm' : 'text-gray-400'}`}
-            >
-              বাংলা
-            </button>
-            <button 
-              onClick={() => setLanguage('en')}
-              className={`px-3 py-0.5 rounded transition-all ${language === 'en' ? 'bg-[#0066FF] text-white shadow-sm' : 'text-gray-400'}`}
-            >
-              English
-            </button>
+
+          <div className="hidden sm:flex items-center space-x-2 px-4 py-1 rounded-full bg-blue-600/5 border border-blue-100">
+            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
+            <span className="font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] text-blue-600">২৪/৭ আওয়ার্স সাপোর্ট</span>
+          </div>
+
+          <div className="flex items-center space-x-3 md:space-x-8">
+            <span className="flex items-center english-font font-black">
+              <span className="mr-1 text-blue-600">📞</span> 01764471819
+            </span>
+            <div className="flex items-center bg-white rounded-full p-0.5 border border-blue-100">
+              <button onClick={() => setLanguage('bn')} className={`px-2 md:px-3 py-1 rounded-full text-[7px] md:text-[9px] font-black transition-all ${language === 'bn' ? 'bg-[#0066FF] text-white' : 'text-blue-400'}`}>বাংলা</button>
+              <button onClick={() => setLanguage('en')} className={`px-2 md:px-3 py-1 rounded-full text-[7px] md:text-[9px] font-black transition-all ${language === 'en' ? 'bg-[#0066FF] text-white' : 'text-blue-400'}`}>EN</button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Nav */}
-      <nav className={`container mx-auto px-4 py-4 flex justify-between items-center bg-white ${isScrolled ? 'rounded-b-none' : 'rounded-b-lg'}`}>
-        <Link to="/" className="flex items-center">
-          <div className="w-10 h-10 bg-[#0066FF] rounded-lg flex items-center justify-center text-white font-bold text-xl mr-2 shadow-lg text-white">
-            TB
-          </div>
-          <span className="text-xl md:text-2xl font-bold text-[#111827]">
-            Template <span className="text-[#0066FF]">Bazar</span>
-          </span>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center space-x-2">
-          <NavLink to="/" label={t('home')} />
-          <NavLink to="/templates" label={t('templates')} />
-          <NavLink to="/services" label={t('services')} />
-          <NavLink to="/about" label={t('aboutUs')} />
-          <NavLink to="/contact" label={t('contact')} />
-        </div>
-
-        <div className="hidden lg:flex items-center space-x-3">
-          {isAdmin && (
-             <Link to="/admin" className="px-5 py-2 bg-purple-100 text-purple-700 rounded-full font-bold hover:bg-purple-200 transition-all">
-                👑 {t('adminPanel')}
-             </Link>
-          )}
-          {user ? (
-            <div className="flex items-center space-x-3">
-              <Link to="/dashboard" className="px-5 py-2 bg-blue-50 text-[#0066FF] rounded-full font-bold hover:bg-blue-100 transition-all flex items-center">
-                <span className="mr-2">👤</span>
-                {t('dashboard')}
-              </Link>
-              <button 
-                onClick={handleLogout}
-                className="px-6 py-2 border border-[#EF4444] text-[#EF4444] rounded-full font-bold hover:bg-[#EF4444] hover:text-white transition-all active:scale-95"
-              >
-                {t('logout')}
-              </button>
+      {/* 2. MAIN NAV BAR */}
+      <nav className={`transition-all duration-300 border-b border-gray-100 ${isScrolled ? 'bg-white shadow-xl py-2' : 'bg-white/95 backdrop-blur-md py-4'}`}>
+        <div className="container mx-auto max-w-[1440px] px-4 md:px-6 flex justify-between items-center">
+          <Link to="/" className="flex items-center group shrink-0">
+            <img 
+              src={LOGO_URL} 
+              alt="Template Bazar BD" 
+              className="w-10 h-10 md:w-12 md:h-12 object-contain mr-2 rounded-full border-2 border-blue-50 group-hover:rotate-6 transition-transform duration-300" 
+            />
+            <div className="flex flex-col">
+              <span className="text-base md:text-xl font-black text-[#111827] leading-none">
+                Template <span className="text-[#0066FF]">Bazar BD</span>
+              </span>
+              <span className="text-[7px] font-black uppercase tracking-[0.2em] text-gray-400">Marketplace</span>
             </div>
-          ) : (
-            <>
-              <Link to="/login" className="px-5 py-2 text-[#4B5563] font-semibold hover:text-[#0066FF] transition-colors">
-                {t('login')}
-              </Link>
-              <Link to="/register" className="px-6 py-2 bg-[#0066FF] text-white rounded-full font-bold hover:bg-[#0052CC] transition-all shadow-md active:scale-95">
-                {t('register')}
-              </Link>
-            </>
-          )}
-        </div>
+          </Link>
 
-        {/* Mobile Toggle */}
-        <button 
-          className="lg:hidden p-2 text-[#111827] bg-gray-100 rounded-md"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? (
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-          ) : (
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
-          )}
-        </button>
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center space-x-1">
+            <NavLink to="/" label={t('home')} />
+            <NavLink to="/templates" label={t('templates')} />
+            <NavLink to="/services" label={t('services')} />
+            <NavLink to="/about" label={t('aboutUs')} />
+            <NavLink to="/contact" label={t('contact')} />
+          </div>
+
+          {/* Desktop Auth Buttons */}
+          <div className="hidden lg:flex items-center space-x-3">
+            {user ? (
+               <div className="flex items-center space-x-3">
+                  <Link to={isAdmin ? "/admin" : "/dashboard"} className="px-5 py-2.5 bg-blue-50 text-[#0066FF] rounded-xl font-black text-[10px] uppercase tracking-wider hover:bg-blue-100 transition-all">
+                    {isAdmin ? "Admin" : "Dashboard"}
+                  </Link>
+                  <button onClick={handleLogout} className="text-red-500 font-black text-[10px] uppercase hover:underline">Logout</button>
+               </div>
+            ) : (
+              <div className="flex items-center space-x-3">
+                <Link to="/login" className="px-6 py-2.5 bg-white text-[#111827] border border-slate-200 rounded-xl font-black text-[10px] uppercase tracking-widest hover:border-[#0066FF] hover:text-[#0066FF] transition-all shadow-sm">
+                  Login
+                </Link>
+                <Link to="/register" className="px-7 py-3 bg-[#0066FF] text-white rounded-xl font-black hover:bg-[#0052CC] transition-all shadow-lg shadow-blue-500/20 text-[10px] uppercase tracking-widest">
+                  Register
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Toggle */}
+          <button 
+            className="lg:hidden p-2 text-[#111827] bg-gray-50 rounded-lg"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+            )}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <div className={`lg:hidden fixed inset-0 bg-white z-[90] transition-transform duration-300 pt-32 px-6 flex flex-col space-y-4 ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        {isAdmin && (
-           <Link to="/admin" onClick={() => setIsMobileMenuOpen(false)} className="w-full py-3 text-center bg-purple-100 text-purple-700 rounded-lg font-bold">
-              👑 অ্যাডমিন প্যানেল
-           </Link>
-        )}
+      <div className={`lg:hidden fixed inset-0 bg-white z-[90] transition-transform duration-500 pt-40 px-6 flex flex-col space-y-4 ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <NavLink to="/" label={t('home')} />
         <NavLink to="/templates" label={t('templates')} />
         <NavLink to="/services" label={t('services')} />
         <NavLink to="/about" label={t('aboutUs')} />
         <NavLink to="/contact" label={t('contact')} />
-        <hr />
-        <div className="flex flex-col space-y-3 pt-4">
-          {user ? (
-            <>
-              <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="w-full py-3 text-center bg-blue-50 text-[#0066FF] rounded-lg font-bold">
-                {t('dashboard')}
-              </Link>
-              <button 
-                onClick={handleLogout}
-                className="w-full py-3 text-center bg-[#EF4444] text-white rounded-lg font-bold"
-              >
-                {t('logout')}
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="w-full py-3 text-center border border-gray-200 rounded-lg text-[#111827] font-bold">
-                {t('login')}
-              </Link>
-              <Link to="/register" onClick={() => setIsMobileMenuOpen(false)} className="w-full py-3 text-center bg-[#0066FF] text-white rounded-lg font-bold">
-                {t('register')}
-              </Link>
-            </>
-          )}
-        </div>
+        {!user && (
+          <div className="pt-8 flex flex-col space-y-4">
+            <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="w-full py-4 text-center text-slate-900 border border-slate-200 rounded-2xl font-black uppercase text-xs tracking-widest">Login</Link>
+            <Link to="/register" onClick={() => setIsMobileMenuOpen(false)} className="w-full py-4 text-center bg-[#0066FF] text-white rounded-2xl font-black shadow-lg uppercase text-xs tracking-widest">Register Now</Link>
+          </div>
+        )}
       </div>
     </header>
   );

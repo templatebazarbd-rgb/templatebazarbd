@@ -14,6 +14,8 @@ const RegisterPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
+  const LOGO_URL = 'https://image2url.com/r2/default/images/1770036962144-eb903fec-66ae-4ed6-a5ae-5e1b98677ccc.png';
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -45,9 +47,11 @@ const RegisterPage: React.FC = () => {
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-3xl shadow-2xl border border-gray-100">
         <div>
           <div className="flex justify-center">
-            <div className="w-16 h-16 bg-[#10B981] rounded-2xl flex items-center justify-center text-white font-bold text-3xl shadow-lg">
-              TB
-            </div>
+            <img 
+              src={LOGO_URL} 
+              alt="Template Bazar BD" 
+              className="w-20 h-20 object-contain drop-shadow-md rounded-full border-4 border-blue-50" 
+            />
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             {language === 'bn' ? 'নতুন একাউন্ট তৈরি করুন' : 'Create a new account'}
